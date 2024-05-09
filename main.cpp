@@ -427,6 +427,7 @@ struct MeteoSpaceNetwork
     WeatherSatellite geostationarySat;
     WeatherSatellite lowOrbitalSat;
     void recalibrateNetworkAntennas(float newFreq);
+    void adjustOrbitingNodeVelocity(double targetVelocity);
 };
 
 MeteoSpaceNetwork::MeteoSpaceNetwork()
@@ -446,6 +447,12 @@ void MeteoSpaceNetwork::recalibrateNetworkAntennas(float newFreq)
     std::cout << "recalibrating satellite antennas to " << newFreq << " GHz\n";
     geostationarySat.antennaCenterFrequency = newFreq;
     lowOrbitalSat.antennaCenterFrequency = newFreq;
+}
+
+void MeteoSpaceNetwork::adjustOrbitingNodeVelocity(double targetVelocity)
+{
+    std::cout << "adjusting orbital velocity of orbiting satellite to " << targetVelocity << "*10^3 ms^-1\n";
+    lowOrbitalSat.orbitalVelocity = targetVelocity;
 }
 
 /*
