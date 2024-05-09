@@ -389,7 +389,7 @@ struct InternetCafe
     Laptop upstairsLaptop;
     Laptop downstairsLaptop;
     Laptop::Battery spareBattery;
-    void fixDeadLaptop(Laptop laptop, Laptop::Battery replacementBattery);
+    void fixDeadUpstairsLaptop(Laptop::Battery replacementBattery);
 };
 
 InternetCafe::InternetCafe()
@@ -405,9 +405,9 @@ InternetCafe::~InternetCafe()
     std::cout << "InternetCafe being destructed\n";
 }
 
-void InternetCafe::fixDeadLaptop(Laptop laptop, Laptop::Battery replacementBattery)
+void InternetCafe::fixDeadUpstairsLaptop(Laptop::Battery replacementBattery)
 {
-    laptop.replaceBattery(replacementBattery);
+    upstairsLaptop.replaceBattery(replacementBattery);
 }
 /*
  new UDT 5:
@@ -478,6 +478,10 @@ int main()
     sputnik.transmitDataToGroundStation();
     sputnik.monitorBatteryChargeLevel();
     sputnik.normalizeAttitude(48.0);
+
+    InternetCafe cafe3000;
+
+    cafe3000.fixDeadUpstairsLaptop(cafe3000.spareBattery);
 
     std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
