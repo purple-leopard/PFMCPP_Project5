@@ -440,7 +440,6 @@ MeteoSpaceNetwork::~MeteoSpaceNetwork()
  Wait for my code review.
  */
 
-#include <iostream>
 int main()
 {
     std::cout << "good to go!" << std::endl;
