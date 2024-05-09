@@ -382,12 +382,21 @@ void WeatherSatellite::normalizeAttitude(double targetAttitude)
  new UDT 4:
  with 2 member functions
  */
-
+struct InternetCafe
+{
+    Laptop upstairsLaptop;
+    Laptop downstairsLaptop;
+    Laptop::Battery spareBattery;
+};
 /*
  new UDT 5:
  with 2 member functions
  */
-
+struct MeteoSpaceNetwork
+{
+    WeatherSatellite geostationarySat;
+    WeatherSatellite lowOrbitalSat;
+};
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
