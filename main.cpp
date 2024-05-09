@@ -398,6 +398,11 @@ InternetCafe::InternetCafe()
     downstairsLaptop.currentBattery.charge(100.0f);
     spareBattery.charge(100.0f);
 }
+
+InternetCafe::~InternetCafe()
+{
+    std::cout << "InternetCafe being destructed\n";
+}
 /*
  new UDT 5:
  with 2 member functions
@@ -415,6 +420,11 @@ MeteoSpaceNetwork::MeteoSpaceNetwork()
     std::cout << "MeteoSpaceNetwork being constructed\n";
     geostationarySat.normalizeAttitude(90.0);
     lowOrbitalSat.normalizeAttitude(36.0);
+}
+
+MeteoSpaceNetwork::~MeteoSpaceNetwork()
+{
+    std::cout << "MeteoSpaceNetwork being destructed\n";
 }
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
