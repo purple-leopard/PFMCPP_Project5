@@ -70,19 +70,284 @@ write 3 UDTs below that EACH have:
  You will use those in Part 3 of this project.
 
  */
-
+#include <iostream>
 /*
  copied UDT 1:
  */
+struct Dog
+{
+    Dog();
+    float weight;
+    float height;
+    int ageInYears;
+    std::string furColour;
+    std::string breed;
 
+    struct DogCollar
+    {
+        DogCollar();
+        std::string material;
+        std::string color;
+        std::string dogName;
+        float length;
+        float width;
+
+        void attachLeash(const std::string& leashType = "standard", bool isRetractable = false);
+        void remove(bool clipRelease = true);
+        bool adjustFit(float newSize, float minSize = 10.0f, float maxSize = 20.0f);
+        void jingleBell(int numJingles);
+    };
+
+    void barkAtPostman();
+    void fetchBall();
+    bool tryNewCollar(DogCollar newCollar);
+    void simulateAgeing(int yearsToAgeBy);
+
+    DogCollar currentCollar;
+};
+
+Dog::Dog() : weight(1.0f), height(0.5f), ageInYears(1), furColour("brown"), breed("Jack Russel")
+{
+    std::cout << "Dog being constructed\n";
+}
+
+Dog::DogCollar::DogCollar() : material("leather"), color("red"), dogName("BUSTER"), length(15.0f), width(0.5f)
+{
+    std::cout << "DogCollar being constructed\n";
+}
+
+void Dog::DogCollar::attachLeash(const std::string& leashType, bool isRetractable)
+{
+    std::cout << "leash material: " << material << ", leash type: " << leashType << ", leash retractable: " << isRetractable << "\n";
+}
+
+void Dog::DogCollar::remove(bool clipRelease)
+{
+    std::cout << (clipRelease ? "clip released\n" : "clip not released\n");
+}
+
+bool Dog::DogCollar::adjustFit(float newSize, float minSize, float maxSize) 
+{
+    if (newSize >= minSize && newSize <= maxSize) 
+    {
+        length = newSize;
+        std::cout << "adjustment successful\n";
+        return true;
+    }
+    std::cout << "adjustment unsuccessful\n";
+    return false;
+}
+
+void Dog::DogCollar::jingleBell(int numJingles)
+{
+    std::cout << "collar bell goes:\n";
+    for(int count = 0; count < numJingles; ++count)
+    {
+        std::cout << "jingle\n";
+    }
+}
+
+void Dog::barkAtPostman() 
+{
+    std::cout << furColour << " colour dog is barking at the postman\n";
+}
+
+void Dog::fetchBall()
+{
+    std::cout << "fetch\n";
+}
+
+bool Dog::tryNewCollar(DogCollar newCollar) 
+{
+    if (newCollar.length >= 10.0f && newCollar.length <= 20.0f) 
+    {
+        currentCollar = newCollar;
+        std::cout << "collar fits, replace original collar with new collar\n";
+        return true;
+    }
+    std::cout << "collar doesn't fit, keep original collar\n";
+    return false;
+}
+
+void Dog::simulateAgeing(int yearsToAgeBy)
+{
+    int year = 0;
+    while(year < yearsToAgeBy)
+    {
+        ++year;
+        ++ageInYears;
+        weight += 1.5f;
+
+        std::cout << "dog is now " << ageInYears << " years old and weighs " << weight << " kg\n";
+
+        if(ageInYears == 9)
+        {
+            std::cout << "dog is 9 years older now, ending simulation early\n";
+            break;
+        }
+        
+    }
+}
 /*
  copied UDT 2:
  */
+struct Laptop
+{
+    Laptop();
+    std::string brand = "Apple";
+    std::string model;
+    std::string operatingSystemVersion = "Snow Leopard";
+    int memoryCapacity = 16;
+    int numberOfProcessorCores = 4;
+    
+    struct Battery
+    {
+        Battery();
+        std::string type = "Li-ion";
+        float capacity;
+        int chargeCycles = 1000;
+        float maxChargeCurrent = 2.0f;
+        float voltage = 18.0f;
 
+        bool charge(float chargeToLevel = 100.0f);
+        float checkCapacityRemaining(const std::string& fuelGuageAlgorithm = "ModelGauge");
+        void limitChargeCurrent(float inputCurrent, float temperatureLimit = 85.8f);
+        void drain();
+    };
+
+    void replaceBattery(Battery newBattery);
+    bool launchProgram(const std::string& programName);
+    bool invokeCompiler();
+    void cycleCharge(Battery battery, int numCycles);
+
+    Battery currentBattery;
+};
+
+Laptop::Laptop() : model("Macbook")
+{
+    std::cout << "Laptop being constructed\n";
+}
+
+Laptop::Battery::Battery() : capacity(1000.0f)
+{
+    std::cout << "Battery being constructed\n";
+}
+
+bool Laptop::Battery::charge(float chargeToLevel) 
+{
+    float chargeLevel = 75.0f;
+    std::cout << "battery charging to level: " << chargeToLevel << "%\n";
+    return chargeLevel >= chargeToLevel;
+}
+
+float Laptop::Battery::checkCapacityRemaining(const std::string& fuelGuageAlgorithm) 
+{
+    float capacityRemaining = 1000.0f;
+    std::cout << "checking battery capacity remaining out of max capacity " << capacity << " mAh, using " << fuelGuageAlgorithm << "\n";
+    return capacityRemaining;
+}
+
+void Laptop::Battery::limitChargeCurrent(float inputCurrent, float temperatureLimit) 
+{
+    float temperature = 38.0f;
+    if (inputCurrent > maxChargeCurrent || temperature > temperatureLimit) 
+    {
+        inputCurrent = maxChargeCurrent;
+        std::cout << "charge current limited to " << maxChargeCurrent << "\n";
+    }
+}
+
+void Laptop::Battery::drain()
+{
+    while (capacity > 200.0f)
+    {
+        capacity -= 200.0f;
+        std::cout << "battery capacity now at " << capacity << " mAh\n";
+    }
+    std::cout << "battery low, please recharge\n";
+}
+
+void Laptop::replaceBattery(Battery newBattery) 
+{
+    currentBattery = newBattery;
+    std::cout << model <<" battery replaced with type: " << newBattery.type << "\n";
+}
+
+bool Laptop::launchProgram(const std::string& programName) 
+{
+    std::cout << "launching program: " << programName << "\n";
+    return true;
+}
+
+bool Laptop::invokeCompiler() 
+{
+    std::cout << "compiler invoked" << "\n";
+    return true;
+}
+
+void Laptop::cycleCharge(Battery battery, int numCycles)
+{
+    for(int i = 0; i < numCycles; ++i)
+    {
+        ++battery.chargeCycles;
+        std::cout << "cycling battery charge, cycles are now at: " << battery.chargeCycles << "\n";
+    }
+}
 /*
  copied UDT 3:
  */
+struct WeatherSatellite
+{
+    WeatherSatellite();
+    int numberOfSolarPanels = 8;
+    std::string radiationHardeningType = "Standard";
+    double attitude;
+    double orbitalVelocity = 7.8;
+    float antennaCenterFrequency = 2.4f;
+    void switchImagingModality();
+    int transmitDataToGroundStation();
+    float monitorBatteryChargeLevel();
+    void normalizeAttitude(double targetAttitude);
+};
 
+WeatherSatellite::WeatherSatellite() : attitude(45.7)
+{
+    std::cout << "WeatherSatellite being constructed\n";
+}
+
+void WeatherSatellite::switchImagingModality()
+{
+    std::cout << "satellite attitude is " <<  attitude << " degrees, switching imaging modality from visible to infrared\n";
+}
+
+int WeatherSatellite::transmitDataToGroundStation()
+{
+    int numberOfImagesTransmitted = 500;
+    std::cout << "transmitted " << numberOfImagesTransmitted << " images\n";
+    return numberOfImagesTransmitted;
+}
+
+float WeatherSatellite::monitorBatteryChargeLevel()
+{
+    float chargeLevel = 75.0f;
+    std::cout << "current battery charge level is " << chargeLevel << "%\n";
+    return chargeLevel;
+}
+
+void WeatherSatellite::normalizeAttitude(double targetAttitude)
+{
+    std::cout << "starting attitude normalization from " << attitude << " degrees to " << targetAttitude << " degrees\n";
+    while(attitude < targetAttitude)
+    {
+        attitude += 0.5;
+        std::cout << "adjusting, current attitude: " << attitude << " degrees\n";
+        if(attitude >= targetAttitude)
+        {
+            std::cout << "target attitude achieved\n";
+            break; 
+        }
+    }
+}
 /*
  new UDT 4:
  with 2 member functions
