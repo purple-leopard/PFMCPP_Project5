@@ -510,6 +510,7 @@ int main()
     MeteoSpaceNetwork bigWeather;
 
     bigWeather.recalibrateNetworkAntennas(2.368f);
+    bigWeather.adjustOrbitingNodeVelocity(8.3);
 
     std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
