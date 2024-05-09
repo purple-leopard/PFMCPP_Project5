@@ -515,7 +515,7 @@ int main()
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
     std::cout << "laptop brand: " << laptop.brand << "\n";
     std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
-    std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << " ms^-1\n";
+    std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
 
     std::cout << "good to go!" << std::endl;
 }
