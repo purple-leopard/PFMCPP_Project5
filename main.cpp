@@ -77,6 +77,7 @@ write 3 UDTs below that EACH have:
 struct Dog
 {
     Dog();
+    ~Dog();
     float weight;
     float height;
     int ageInYears;
@@ -86,6 +87,7 @@ struct Dog
     struct DogCollar
     {
         DogCollar();
+        ~DogCollar();
         std::string material;
         std::string color;
         std::string dogName;
@@ -111,9 +113,19 @@ Dog::Dog() : weight(1.0f), height(0.5f), ageInYears(1), furColour("brown"), bree
     std::cout << "Dog being constructed\n";
 }
 
+Dog::~Dog()
+{
+    std::cout << "Dog being destructed\n";
+}
+
 Dog::DogCollar::DogCollar() : material("leather"), color("red"), dogName("BUSTER"), length(15.0f), width(0.5f)
 {
     std::cout << "DogCollar being constructed\n";
+}
+
+Dog::DogCollar::~DogCollar()
+{
+    std::cout << "DogCollar being destructed\n";
 }
 
 void Dog::DogCollar::attachLeash(const std::string& leashType, bool isRetractable)
@@ -194,6 +206,7 @@ void Dog::simulateAgeing(int yearsToAgeBy)
 struct Laptop
 {
     Laptop();
+    ~Laptop();
     std::string brand = "Apple";
     std::string model;
     std::string operatingSystemVersion = "Snow Leopard";
@@ -203,6 +216,7 @@ struct Laptop
     struct Battery
     {
         Battery();
+        ~Battery();
         std::string type = "Li-ion";
         float capacity;
         int chargeCycles = 1000;
@@ -228,9 +242,19 @@ Laptop::Laptop() : model("Macbook")
     std::cout << "Laptop being constructed\n";
 }
 
+Laptop::~Laptop()
+{
+    std::cout << "Laptop being destructed\n";
+}
+
 Laptop::Battery::Battery() : capacity(1000.0f)
 {
     std::cout << "Battery being constructed\n";
+}
+
+Laptop::Battery::~Battery()
+{
+    std::cout << "Battery being destructed\n";
 }
 
 bool Laptop::Battery::charge(float chargeToLevel) 
@@ -299,6 +323,7 @@ void Laptop::cycleCharge(Battery battery, int numCycles)
 struct WeatherSatellite
 {
     WeatherSatellite();
+    ~WeatherSatellite();
     int numberOfSolarPanels = 8;
     std::string radiationHardeningType = "Standard";
     double attitude;
@@ -313,6 +338,11 @@ struct WeatherSatellite
 WeatherSatellite::WeatherSatellite() : attitude(45.7)
 {
     std::cout << "WeatherSatellite being constructed\n";
+}
+
+WeatherSatellite::~WeatherSatellite()
+{
+    std::cout << "WeatherSatellite being destructed\n";
 }
 
 void WeatherSatellite::switchImagingModality()
