@@ -432,8 +432,8 @@ struct MeteoSpaceNetwork
 MeteoSpaceNetwork::MeteoSpaceNetwork()
 {
     std::cout << "MeteoSpaceNetwork being constructed\n";
-    geostationarySat.normalizeAttitude(90.0);
-    lowOrbitalSat.normalizeAttitude(36.0);
+    geostationarySat.normalizeAttitude(50.1);
+    lowOrbitalSat.normalizeAttitude(49.3);
 }
 
 MeteoSpaceNetwork::~MeteoSpaceNetwork()
