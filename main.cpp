@@ -489,6 +489,7 @@ int main()
     InternetCafe cafe3000;
 
     cafe3000.fixDeadUpstairsLaptop(cafe3000.spareBattery);
+    cafe3000.updateDownstairsLaptopOS("Sonoma");
 
     std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
