@@ -389,6 +389,14 @@ struct InternetCafe
     Laptop downstairsLaptop;
     Laptop::Battery spareBattery;
 };
+
+InternetCafe::InternetCafe()
+{
+    std::cout << "InternetCafe being constructed\n";
+    upstairsLaptop.currentBattery.charge(100.0f);
+    downstairsLaptop.currentBattery.charge(100.0f);
+    spareBattery.charge(100.0f);
+}
 /*
  new UDT 5:
  with 2 member functions
@@ -399,6 +407,13 @@ struct MeteoSpaceNetwork
     WeatherSatellite geostationarySat;
     WeatherSatellite lowOrbitalSat;
 };
+
+MeteoSpaceNetwork::MeteoSpaceNetwork()
+{
+    std::cout << "MeteoSpaceNetwork being constructed\n";
+    geostationarySat.normalizeAttitude(90.0);
+    lowOrbitalSat.normalizeAttitude(36.0);
+}
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
