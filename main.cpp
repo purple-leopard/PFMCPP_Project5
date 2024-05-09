@@ -390,6 +390,7 @@ struct InternetCafe
     Laptop downstairsLaptop;
     Laptop::Battery spareBattery;
     void fixDeadUpstairsLaptop(Laptop::Battery replacementBattery);
+    void updateDownstairsLaptopOS(std::string newOS);
 };
 
 InternetCafe::InternetCafe()
@@ -408,6 +409,12 @@ InternetCafe::~InternetCafe()
 void InternetCafe::fixDeadUpstairsLaptop(Laptop::Battery replacementBattery)
 {
     upstairsLaptop.replaceBattery(replacementBattery);
+}
+
+void InternetCafe::updateDownstairsLaptopOS(std::string newOS)
+{
+    downstairsLaptop.operatingSystemVersion = newOS;
+    std::cout << "update downstairs laptop's OS to " << newOS << "\n";
 }
 /*
  new UDT 5:
