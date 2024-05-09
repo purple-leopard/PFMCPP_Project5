@@ -426,6 +426,7 @@ struct MeteoSpaceNetwork
     ~MeteoSpaceNetwork();
     WeatherSatellite geostationarySat;
     WeatherSatellite lowOrbitalSat;
+    void recalibrateNetworkAntennas(float newFreq);
 };
 
 MeteoSpaceNetwork::MeteoSpaceNetwork()
@@ -439,6 +440,14 @@ MeteoSpaceNetwork::~MeteoSpaceNetwork()
 {
     std::cout << "MeteoSpaceNetwork being destructed\n";
 }
+
+void MeteoSpaceNetwork::recalibrateNetworkAntennas(float newFreq)
+{
+    std::cout << "recalibrating satellite antennas to " << newFreq << " GHz\n";
+    geostationarySat.antennaCenterFrequency = newFreq;
+    lowOrbitalSat.antennaCenterFrequency = newFreq;
+}
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
