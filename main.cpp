@@ -384,6 +384,7 @@ void WeatherSatellite::normalizeAttitude(double targetAttitude)
  */
 struct InternetCafe
 {
+    InternetCafe();
     Laptop upstairsLaptop;
     Laptop downstairsLaptop;
     Laptop::Battery spareBattery;
@@ -394,6 +395,7 @@ struct InternetCafe
  */
 struct MeteoSpaceNetwork
 {
+    MeteoSpaceNetwork();
     WeatherSatellite geostationarySat;
     WeatherSatellite lowOrbitalSat;
 };
