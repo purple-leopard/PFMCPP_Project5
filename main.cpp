@@ -389,6 +389,7 @@ struct InternetCafe
     Laptop upstairsLaptop;
     Laptop downstairsLaptop;
     Laptop::Battery spareBattery;
+    void fixDeadLaptop(Laptop laptop, Laptop::Battery replacementBattery);
 };
 
 InternetCafe::InternetCafe()
@@ -402,6 +403,11 @@ InternetCafe::InternetCafe()
 InternetCafe::~InternetCafe()
 {
     std::cout << "InternetCafe being destructed\n";
+}
+
+void InternetCafe::fixDeadLaptop(Laptop laptop, Laptop::Battery replacementBattery)
+{
+    laptop.replaceBattery(replacementBattery);
 }
 /*
  new UDT 5:
