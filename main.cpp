@@ -442,5 +442,42 @@ MeteoSpaceNetwork::~MeteoSpaceNetwork()
 
 int main()
 {
+    Dog jackRussel;
+    Dog::DogCollar pinkCollar;
+    
+    jackRussel.barkAtPostman();
+    jackRussel.fetchBall();
+    jackRussel.tryNewCollar(pinkCollar);
+    jackRussel.simulateAgeing(8);
+    jackRussel.currentCollar.attachLeash("gangster", true);
+    jackRussel.currentCollar.adjustFit(15, 10.0f, 20.0f);
+    jackRussel.currentCollar.jingleBell(4);
+    jackRussel.currentCollar.remove(true);
+
+    Laptop laptop;
+    Laptop::Battery replacementBattery;
+
+    laptop.replaceBattery(replacementBattery);
+    laptop.launchProgram("Logic");
+    laptop.invokeCompiler();
+    laptop.cycleCharge(laptop.currentBattery, 3);
+    laptop.currentBattery.charge(90.0f);
+    laptop.currentBattery.drain();
+    laptop.currentBattery.checkCapacityRemaining("FastGauge");
+    laptop.currentBattery.limitChargeCurrent(2.5f, 90.0f);
+
+    WeatherSatellite sputnik;
+
+    sputnik.switchImagingModality();
+    sputnik.transmitDataToGroundStation();
+    sputnik.monitorBatteryChargeLevel();
+    sputnik.normalizeAttitude(48.0);
+
+    std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
+    std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
+    std::cout << "laptop brand: " << laptop.brand << "\n";
+    std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
+    std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << " ms^-1\n";
+
     std::cout << "good to go!" << std::endl;
 }
