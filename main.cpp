@@ -500,6 +500,10 @@ int main()
     cafe3000.fixDeadUpstairsLaptop(cafe3000.spareBattery);
     cafe3000.updateDownstairsLaptopOS("Sonoma");
 
+    MeteoSpaceNetwork bigWeather;
+
+    bigWeather.recalibrateNetworkAntennas(2.368f);
+
     std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
     std::cout << "laptop brand: " << laptop.brand << "\n";
