@@ -103,6 +103,7 @@ struct Dog
         void remove(bool clipRelease = true);
         bool adjustFit(float newSize, float minSize = 10.0f, float maxSize = 20.0f);
         void jingleBell(int numJingles);
+        void printCollarMaterial();
     };
 
     void barkAtPostman();
@@ -162,6 +163,11 @@ void Dog::DogCollar::jingleBell(int numJingles)
     {
         std::cout << "jingle\n";
     }
+}
+
+void Dog::DogCollar::printCollarMaterial()
+{
+    std::cout << "dog's collar material: " << this->material << "\n";
 }
 
 void Dog::barkAtPostman() 
@@ -519,6 +525,7 @@ int main()
 
     std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
+    jackRussel.currentCollar.printCollarMaterial();
     std::cout << "laptop brand: " << laptop.brand << "\n";
     std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
     std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
