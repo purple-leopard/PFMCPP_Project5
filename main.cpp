@@ -244,6 +244,7 @@ struct Laptop
         float checkCapacityRemaining(const std::string& fuelGuageAlgorithm = "ModelGauge");
         void limitChargeCurrent(float inputCurrent, float temperatureLimit = 85.8f);
         void drain();
+        void printChargeCapacity();
     };
 
     void replaceBattery(Battery newBattery);
@@ -307,6 +308,11 @@ void Laptop::Battery::drain()
         std::cout << "battery capacity now at " << capacity << " mAh\n";
     }
     std::cout << "battery low, please recharge\n";
+}
+
+void Laptop::Battery::printChargeCapacity()
+{
+    std::cout << "laptop's battery's charge capacity: " << this->capacity << " mAh\n";
 }
 
 void Laptop::replaceBattery(Battery newBattery) 
@@ -542,6 +548,7 @@ int main()
     std::cout << "laptop brand: " << laptop.brand << "\n";
     laptop.printBrand();
     std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
+    laptop.currentBattery.printChargeCapacity();
     std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
 
     std::cout << "good to go!" << std::endl;
