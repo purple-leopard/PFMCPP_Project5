@@ -362,6 +362,7 @@ struct WeatherSatellite
     int transmitDataToGroundStation();
     float monitorBatteryChargeLevel();
     void normalizeAttitude(double targetAttitude);
+    void printOrbitalVelocity();
 };
 
 WeatherSatellite::WeatherSatellite() : attitude(45.7)
@@ -406,6 +407,11 @@ void WeatherSatellite::normalizeAttitude(double targetAttitude)
             break; 
         }
     }
+}
+
+void WeatherSatellite::printOrbitalVelocity()
+{
+    std::cout << "sputnik's orbital velocity is: " << this->orbitalVelocity << "*10^3 ms^-1\n";
 }
 /*
  new UDT 4:
@@ -550,6 +556,7 @@ int main()
     std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
     laptop.currentBattery.printChargeCapacity();
     std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
+    sputnik.printOrbitalVelocity();
 
     std::cout << "good to go!" << std::endl;
 }
