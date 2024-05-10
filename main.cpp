@@ -250,6 +250,7 @@ struct Laptop
     bool launchProgram(const std::string& programName);
     bool invokeCompiler();
     void cycleCharge(Battery battery, int numCycles);
+    void printBrand();
 
     Battery currentBattery;
 };
@@ -333,6 +334,11 @@ void Laptop::cycleCharge(Battery battery, int numCycles)
         ++battery.chargeCycles;
         std::cout << "cycling battery charge, cycles are now at: " << battery.chargeCycles << "\n";
     }
+}
+
+void Laptop::printBrand()
+{
+    std::cout << "laptop brand: " << this->brand << "\n";
 }
 /*
  copied UDT 3:
@@ -534,6 +540,7 @@ int main()
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
     jackRussel.currentCollar.printCollarMaterial();
     std::cout << "laptop brand: " << laptop.brand << "\n";
+    laptop.printBrand();
     std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
     std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
 
