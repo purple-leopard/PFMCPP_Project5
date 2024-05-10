@@ -110,6 +110,7 @@ struct Dog
     void fetchBall();
     bool tryNewCollar(DogCollar newCollar);
     void simulateAgeing(int yearsToAgeBy);
+    void printWeight();
 
     DogCollar currentCollar;
 };
@@ -210,6 +211,11 @@ void Dog::simulateAgeing(int yearsToAgeBy)
         }
         
     }
+}
+
+void Dog::printWeight()
+{
+    std::cout << "dog's weight: " << this->weight << " kg" << "\n";
 }
 /*
  copied UDT 2:
@@ -524,6 +530,7 @@ int main()
     bigWeather.adjustOrbitingNodeVelocity(8.3);
 
     std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
+    jackRussel.printWeight();
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
     jackRussel.currentCollar.printCollarMaterial();
     std::cout << "laptop brand: " << laptop.brand << "\n";
