@@ -103,12 +103,14 @@ struct Dog
         void remove(bool clipRelease = true);
         bool adjustFit(float newSize, float minSize = 10.0f, float maxSize = 20.0f);
         void jingleBell(int numJingles);
+        void printCollarMaterial();
     };
 
     void barkAtPostman();
     void fetchBall();
     bool tryNewCollar(DogCollar newCollar);
     void simulateAgeing(int yearsToAgeBy);
+    void printWeight();
 
     DogCollar currentCollar;
 };
@@ -164,6 +166,11 @@ void Dog::DogCollar::jingleBell(int numJingles)
     }
 }
 
+void Dog::DogCollar::printCollarMaterial()
+{
+    std::cout << "dog's collar material: " << this->material << "\n";
+}
+
 void Dog::barkAtPostman() 
 {
     std::cout << furColour << " colour dog is barking at the postman\n";
@@ -205,6 +212,11 @@ void Dog::simulateAgeing(int yearsToAgeBy)
         
     }
 }
+
+void Dog::printWeight()
+{
+    std::cout << "dog's weight: " << this->weight << " kg" << "\n";
+}
 /*
  copied UDT 2:
  */
@@ -232,12 +244,14 @@ struct Laptop
         float checkCapacityRemaining(const std::string& fuelGuageAlgorithm = "ModelGauge");
         void limitChargeCurrent(float inputCurrent, float temperatureLimit = 85.8f);
         void drain();
+        void printChargeCapacity();
     };
 
     void replaceBattery(Battery newBattery);
     bool launchProgram(const std::string& programName);
     bool invokeCompiler();
     void cycleCharge(Battery battery, int numCycles);
+    void printBrand();
 
     Battery currentBattery;
 };
@@ -296,6 +310,11 @@ void Laptop::Battery::drain()
     std::cout << "battery low, please recharge\n";
 }
 
+void Laptop::Battery::printChargeCapacity()
+{
+    std::cout << "laptop's battery's charge capacity: " << this->capacity << " mAh\n";
+}
+
 void Laptop::replaceBattery(Battery newBattery) 
 {
     currentBattery = newBattery;
@@ -322,6 +341,11 @@ void Laptop::cycleCharge(Battery battery, int numCycles)
         std::cout << "cycling battery charge, cycles are now at: " << battery.chargeCycles << "\n";
     }
 }
+
+void Laptop::printBrand()
+{
+    std::cout << "laptop brand: " << this->brand << "\n";
+}
 /*
  copied UDT 3:
  */
@@ -338,6 +362,7 @@ struct WeatherSatellite
     int transmitDataToGroundStation();
     float monitorBatteryChargeLevel();
     void normalizeAttitude(double targetAttitude);
+    void printOrbitalVelocity();
 };
 
 WeatherSatellite::WeatherSatellite() : attitude(45.7)
@@ -382,6 +407,11 @@ void WeatherSatellite::normalizeAttitude(double targetAttitude)
             break; 
         }
     }
+}
+
+void WeatherSatellite::printOrbitalVelocity()
+{
+    std::cout << "sputnik's orbital velocity is: " << this->orbitalVelocity << "*10^3 ms^-1\n";
 }
 /*
  new UDT 4:
@@ -518,10 +548,15 @@ int main()
     bigWeather.adjustOrbitingNodeVelocity(8.3);
 
     std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
+    jackRussel.printWeight();
     std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
+    jackRussel.currentCollar.printCollarMaterial();
     std::cout << "laptop brand: " << laptop.brand << "\n";
+    laptop.printBrand();
     std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
+    laptop.currentBattery.printChargeCapacity();
     std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
+    sputnik.printOrbitalVelocity();
 
     std::cout << "good to go!" << std::endl;
 }
