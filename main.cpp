@@ -124,6 +124,30 @@ struct Dog
     JUCE_LEAK_DETECTOR(Dog)
 };
 
+struct DogWrapper
+{
+    DogWrapper(Dog* dog) : dogPtr(dog) {}
+
+    ~DogWrapper()
+    {
+        delete dogPtr;
+    }
+
+    Dog* dogPtr = nullptr;
+};
+
+struct DogCollarWrapper
+{
+    DogCollarWrapper(Dog::DogCollar* dogCollar) : dogCollarPtr(dogCollar) {}
+
+    ~DogCollarWrapper()
+    {
+        delete dogCollarPtr;
+    }
+
+    Dog::DogCollar* dogCollarPtr = nullptr;
+};
+
 Dog::Dog() : weight(1.0f), height(0.5f), ageInYears(1), furColour("brown"), breed("Jack Russel")
 {
     std::cout << "Dog being constructed\n";
@@ -525,17 +549,17 @@ void MeteoSpaceNetwork::adjustOrbitingNodeVelocity(double targetVelocity)
 
 int main()
 {
-    Dog jackRussel;
-    Dog::DogCollar pinkCollar;
+    DogWrapper dogWrapper(new Dog);
+    DogCollarWrapper dogCollarWrapper(new Dog::DogCollar);
     
-    jackRussel.barkAtPostman();
-    jackRussel.fetchBall();
-    jackRussel.tryNewCollar(pinkCollar);
-    jackRussel.simulateAgeing(8);
-    jackRussel.currentCollar.attachLeash("gangster", true);
-    jackRussel.currentCollar.adjustFit(15, 10.0f, 20.0f);
-    jackRussel.currentCollar.jingleBell(4);
-    jackRussel.currentCollar.remove(true);
+    dogWrapper.dogPtr->barkAtPostman();
+    dogWrapper.dogPtr->fetchBall();
+    dogWrapper.dogPtr->tryNewCollar(*dogCollarWrapper.dogCollarPtr);
+    dogWrapper.dogPtr->simulateAgeing(8);
+    dogWrapper.dogPtr->currentCollar.attachLeash("gangster", true);
+    dogWrapper.dogPtr->currentCollar.adjustFit(15, 10.0f, 20.0f);
+    dogWrapper.dogPtr->currentCollar.jingleBell(4);
+    dogWrapper.dogPtr->currentCollar.remove(true);
 
     Laptop laptop;
     Laptop::Battery replacementBattery;
@@ -566,10 +590,10 @@ int main()
     bigWeather.recalibrateNetworkAntennas(2.368f);
     bigWeather.adjustOrbitingNodeVelocity(8.3);
 
-    std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
-    jackRussel.printWeight();
-    std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
-    jackRussel.currentCollar.printCollarMaterial();
+    std::cout << "jack russel's weight: " << dogWrapper.dogPtr->weight << " kg" << "\n";
+    dogWrapper.dogPtr->printWeight();
+    std::cout << "jack russel's collar material: " << dogWrapper.dogPtr->currentCollar.material << "\n";
+    dogWrapper.dogPtr->currentCollar.printCollarMaterial();
     std::cout << "laptop brand: " << laptop.brand << "\n";
     laptop.printBrand();
     std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
