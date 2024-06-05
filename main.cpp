@@ -282,10 +282,10 @@ struct Laptop
         JUCE_LEAK_DETECTOR(Battery)
     };
 
-    void replaceBattery(const Battery newBattery);
+    void replaceBattery(const Battery& newBattery);
     bool launchProgram(const std::string& programName);
     bool invokeCompiler() const;
-    void cycleCharge(const Battery battery, const int numCycles);
+    void cycleCharge(Battery& battery, const int numCycles);
     void printBrand() const;
 
     Battery currentBattery;
@@ -376,7 +376,7 @@ void Laptop::Battery::printChargeCapacity() const
     std::cout << "laptop's battery's charge capacity: " << this->capacity << " mAh\n";
 }
 
-void Laptop::replaceBattery(const Battery newBattery) 
+void Laptop::replaceBattery(const Battery& newBattery) 
 {
     currentBattery = newBattery;
     std::cout << model <<" battery replaced with type: " << newBattery.type << "\n";
@@ -394,7 +394,7 @@ bool Laptop::invokeCompiler() const
     return true;
 }
 
-void Laptop::cycleCharge(Battery battery, const int numCycles)
+void Laptop::cycleCharge(Battery& battery, const int numCycles)
 {
     for(int i = 0; i < numCycles; ++i)
     {
