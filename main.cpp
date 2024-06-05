@@ -115,7 +115,7 @@ struct Dog
 
     void barkAtPostman();
     void fetchBall();
-    bool tryNewCollar(const DogCollar newCollar);
+    bool tryNewCollar(const DogCollar& newCollar);
     void simulateAgeing(const int yearsToAgeBy);
     void printWeight();
 
@@ -214,7 +214,7 @@ void Dog::fetchBall()
     std::cout << "fetch\n";
 }
 
-bool Dog::tryNewCollar(const DogCollar newCollar) 
+bool Dog::tryNewCollar(const DogCollar& newCollar) 
 {
     if (newCollar.length >= 10.0f && newCollar.length <= 20.0f) 
     {
