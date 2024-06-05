@@ -108,16 +108,16 @@ struct Dog
         void remove(const bool clipRelease = true);
         bool adjustFit(const float newSize, const float minSize = 10.0f, const float maxSize = 20.0f);
         void jingleBell(const int numJingles);
-        void printCollarMaterial();
+        void printCollarMaterial() const;
 
         JUCE_LEAK_DETECTOR(DogCollar)
     };
 
-    void barkAtPostman();
-    void fetchBall();
+    void barkAtPostman() const;
+    void fetchBall() const;
     bool tryNewCollar(const DogCollar& newCollar);
     void simulateAgeing(const int yearsToAgeBy);
-    void printWeight();
+    void printWeight() const;
 
     DogCollar currentCollar;
 
@@ -199,17 +199,17 @@ void Dog::DogCollar::jingleBell(const int numJingles)
     }
 }
 
-void Dog::DogCollar::printCollarMaterial()
+void Dog::DogCollar::printCollarMaterial() const
 {
     std::cout << "dog's collar material: " << this->material << "\n";
 }
 
-void Dog::barkAtPostman() 
+void Dog::barkAtPostman() const
 {
     std::cout << furColour << " colour dog is barking at the postman\n";
 }
 
-void Dog::fetchBall()
+void Dog::fetchBall() const
 {
     std::cout << "fetch\n";
 }
@@ -246,7 +246,7 @@ void Dog::simulateAgeing(const int yearsToAgeBy)
     }
 }
 
-void Dog::printWeight()
+void Dog::printWeight() const
 {
     std::cout << "dog's weight: " << this->weight << " kg" << "\n";
 }
