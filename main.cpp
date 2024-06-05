@@ -109,6 +109,8 @@ struct Dog
         bool adjustFit(float newSize, float minSize = 10.0f, float maxSize = 20.0f);
         void jingleBell(int numJingles);
         void printCollarMaterial();
+
+        JUCE_LEAK_DETECTOR(DogCollar)
     };
 
     void barkAtPostman();
@@ -118,6 +120,8 @@ struct Dog
     void printWeight();
 
     DogCollar currentCollar;
+
+    JUCE_LEAK_DETECTOR(Dog)
 };
 
 Dog::Dog() : weight(1.0f), height(0.5f), ageInYears(1), furColour("brown"), breed("Jack Russel")
@@ -250,6 +254,8 @@ struct Laptop
         void limitChargeCurrent(float inputCurrent, float temperatureLimit = 85.8f);
         void drain();
         void printChargeCapacity();
+
+        JUCE_LEAK_DETECTOR(Battery)
     };
 
     void replaceBattery(Battery newBattery);
@@ -259,6 +265,8 @@ struct Laptop
     void printBrand();
 
     Battery currentBattery;
+
+    JUCE_LEAK_DETECTOR(Laptop)
 };
 
 Laptop::Laptop() : model("Macbook")
@@ -368,6 +376,8 @@ struct WeatherSatellite
     float monitorBatteryChargeLevel();
     void normalizeAttitude(double targetAttitude);
     void printOrbitalVelocity();
+
+    JUCE_LEAK_DETECTOR(WeatherSatellite)
 };
 
 WeatherSatellite::WeatherSatellite() : attitude(45.7)
@@ -431,6 +441,8 @@ struct InternetCafe
     Laptop::Battery spareBattery;
     void fixDeadUpstairsLaptop(Laptop::Battery replacementBattery);
     void updateDownstairsLaptopOS(std::string newOS);
+
+    JUCE_LEAK_DETECTOR(InternetCafe)
 };
 
 InternetCafe::InternetCafe()
@@ -468,6 +480,8 @@ struct MeteoSpaceNetwork
     WeatherSatellite lowOrbitalSat;
     void recalibrateNetworkAntennas(float newFreq);
     void adjustOrbitingNodeVelocity(double targetVelocity);
+
+    JUCE_LEAK_DETECTOR(MeteoSpaceNetwork)
 };
 
 MeteoSpaceNetwork::MeteoSpaceNetwork()
