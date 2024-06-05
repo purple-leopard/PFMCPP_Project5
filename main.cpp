@@ -505,6 +505,18 @@ struct InternetCafe
     JUCE_LEAK_DETECTOR(InternetCafe)
 };
 
+struct InternetCafeWrapper
+{
+    InternetCafeWrapper(InternetCafe* internetCafe) : internetCafePtr(internetCafe) {}
+
+    ~InternetCafeWrapper()
+    {
+        delete internetCafePtr;
+    }
+
+    InternetCafe* internetCafePtr = nullptr;
+};
+
 InternetCafe::InternetCafe()
 {
     std::cout << "InternetCafe being constructed\n";
@@ -616,10 +628,10 @@ int main()
     weatherSatteliteWrapper.weatherSatellitePtr->monitorBatteryChargeLevel();
     weatherSatteliteWrapper.weatherSatellitePtr->normalizeAttitude(48.0);
 
-    InternetCafe cafe3000;
+    InternetCafeWrapper internetCafeWrapper(new InternetCafe);
 
-    cafe3000.fixDeadUpstairsLaptop(cafe3000.spareBattery);
-    cafe3000.updateDownstairsLaptopOS("Sonoma");
+    internetCafeWrapper.internetCafePtr->fixDeadUpstairsLaptop(internetCafeWrapper.internetCafePtr->spareBattery);
+    internetCafeWrapper.internetCafePtr->updateDownstairsLaptopOS("Sonoma");
 
     MeteoSpaceNetwork bigWeather;
 
