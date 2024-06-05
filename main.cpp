@@ -104,10 +104,10 @@ struct Dog
         float length;
         float width;
 
-        void attachLeash(const std::string& leashType = "standard", bool isRetractable = false);
-        void remove(bool clipRelease = true);
-        bool adjustFit(float newSize, float minSize = 10.0f, float maxSize = 20.0f);
-        void jingleBell(int numJingles);
+        void attachLeash(const std::string& leashType = "standard", const bool isRetractable = false);
+        void remove(const bool clipRelease = true);
+        bool adjustFit(const float newSize, const float minSize = 10.0f, const float maxSize = 20.0f);
+        void jingleBell(const int numJingles);
         void printCollarMaterial();
 
         JUCE_LEAK_DETECTOR(DogCollar)
@@ -115,8 +115,8 @@ struct Dog
 
     void barkAtPostman();
     void fetchBall();
-    bool tryNewCollar(DogCollar newCollar);
-    void simulateAgeing(int yearsToAgeBy);
+    bool tryNewCollar(const DogCollar newCollar);
+    void simulateAgeing(const int yearsToAgeBy);
     void printWeight();
 
     DogCollar currentCollar;
@@ -168,17 +168,17 @@ Dog::DogCollar::~DogCollar()
     std::cout << "DogCollar being destructed\n";
 }
 
-void Dog::DogCollar::attachLeash(const std::string& leashType, bool isRetractable)
+void Dog::DogCollar::attachLeash(const std::string& leashType, const bool isRetractable)
 {
     std::cout << "leash material: " << material << ", leash type: " << leashType << ", leash retractable: " << isRetractable << "\n";
 }
 
-void Dog::DogCollar::remove(bool clipRelease)
+void Dog::DogCollar::remove(const bool clipRelease)
 {
     std::cout << (clipRelease ? "clip released\n" : "clip not released\n");
 }
 
-bool Dog::DogCollar::adjustFit(float newSize, float minSize, float maxSize) 
+bool Dog::DogCollar::adjustFit(const float newSize, const float minSize, const float maxSize) 
 {
     if (newSize >= minSize && newSize <= maxSize) 
     {
@@ -190,7 +190,7 @@ bool Dog::DogCollar::adjustFit(float newSize, float minSize, float maxSize)
     return false;
 }
 
-void Dog::DogCollar::jingleBell(int numJingles)
+void Dog::DogCollar::jingleBell(const int numJingles)
 {
     std::cout << "collar bell goes:\n";
     for(int count = 0; count < numJingles; ++count)
@@ -214,7 +214,7 @@ void Dog::fetchBall()
     std::cout << "fetch\n";
 }
 
-bool Dog::tryNewCollar(DogCollar newCollar) 
+bool Dog::tryNewCollar(const DogCollar newCollar) 
 {
     if (newCollar.length >= 10.0f && newCollar.length <= 20.0f) 
     {
@@ -226,7 +226,7 @@ bool Dog::tryNewCollar(DogCollar newCollar)
     return false;
 }
 
-void Dog::simulateAgeing(int yearsToAgeBy)
+void Dog::simulateAgeing(const int yearsToAgeBy)
 {
     int year = 0;
     while(year < yearsToAgeBy)
