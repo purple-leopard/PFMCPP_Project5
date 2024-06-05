@@ -273,20 +273,20 @@ struct Laptop
         float maxChargeCurrent = 2.0f;
         float voltage = 18.0f;
 
-        bool charge(float chargeToLevel = 100.0f);
+        bool charge(const float chargeToLevel = 100.0f);
         float checkCapacityRemaining(const std::string& fuelGuageAlgorithm = "ModelGauge");
-        void limitChargeCurrent(float inputCurrent, float temperatureLimit = 85.8f);
+        void limitChargeCurrent(float inputCurrent, const float temperatureLimit = 85.8f);
         void drain();
-        void printChargeCapacity();
+        void printChargeCapacity() const;
 
         JUCE_LEAK_DETECTOR(Battery)
     };
 
-    void replaceBattery(Battery newBattery);
+    void replaceBattery(const Battery newBattery);
     bool launchProgram(const std::string& programName);
-    bool invokeCompiler();
-    void cycleCharge(Battery battery, int numCycles);
-    void printBrand();
+    bool invokeCompiler() const;
+    void cycleCharge(const Battery battery, const int numCycles);
+    void printBrand() const;
 
     Battery currentBattery;
 
@@ -337,7 +337,7 @@ Laptop::Battery::~Battery()
     std::cout << "Battery being destructed\n";
 }
 
-bool Laptop::Battery::charge(float chargeToLevel) 
+bool Laptop::Battery::charge(const float chargeToLevel) 
 {
     float chargeLevel = 75.0f;
     std::cout << "battery charging to level: " << chargeToLevel << "%\n";
@@ -351,7 +351,7 @@ float Laptop::Battery::checkCapacityRemaining(const std::string& fuelGuageAlgori
     return capacityRemaining;
 }
 
-void Laptop::Battery::limitChargeCurrent(float inputCurrent, float temperatureLimit) 
+void Laptop::Battery::limitChargeCurrent(float inputCurrent, const float temperatureLimit) 
 {
     float temperature = 38.0f;
     if (inputCurrent > maxChargeCurrent || temperature > temperatureLimit) 
@@ -371,12 +371,12 @@ void Laptop::Battery::drain()
     std::cout << "battery low, please recharge\n";
 }
 
-void Laptop::Battery::printChargeCapacity()
+void Laptop::Battery::printChargeCapacity() const
 {
     std::cout << "laptop's battery's charge capacity: " << this->capacity << " mAh\n";
 }
 
-void Laptop::replaceBattery(Battery newBattery) 
+void Laptop::replaceBattery(const Battery newBattery) 
 {
     currentBattery = newBattery;
     std::cout << model <<" battery replaced with type: " << newBattery.type << "\n";
@@ -388,13 +388,13 @@ bool Laptop::launchProgram(const std::string& programName)
     return true;
 }
 
-bool Laptop::invokeCompiler() 
+bool Laptop::invokeCompiler() const
 {
     std::cout << "compiler invoked" << "\n";
     return true;
 }
 
-void Laptop::cycleCharge(Battery battery, int numCycles)
+void Laptop::cycleCharge(Battery battery, const int numCycles)
 {
     for(int i = 0; i < numCycles; ++i)
     {
@@ -403,7 +403,7 @@ void Laptop::cycleCharge(Battery battery, int numCycles)
     }
 }
 
-void Laptop::printBrand()
+void Laptop::printBrand() const
 {
     std::cout << "laptop brand: " << this->brand << "\n";
 }
