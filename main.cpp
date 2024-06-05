@@ -499,8 +499,8 @@ struct InternetCafe
     Laptop upstairsLaptop;
     Laptop downstairsLaptop;
     Laptop::Battery spareBattery;
-    void fixDeadUpstairsLaptop(Laptop::Battery replacementBattery);
-    void updateDownstairsLaptopOS(std::string newOS);
+    void fixDeadUpstairsLaptop(const Laptop::Battery replacementBattery);
+    void updateDownstairsLaptopOS(const std::string newOS);
 
     JUCE_LEAK_DETECTOR(InternetCafe)
 };
@@ -530,12 +530,12 @@ InternetCafe::~InternetCafe()
     std::cout << "InternetCafe being destructed\n";
 }
 
-void InternetCafe::fixDeadUpstairsLaptop(Laptop::Battery replacementBattery)
+void InternetCafe::fixDeadUpstairsLaptop(const Laptop::Battery replacementBattery)
 {
     upstairsLaptop.replaceBattery(replacementBattery);
 }
 
-void InternetCafe::updateDownstairsLaptopOS(std::string newOS)
+void InternetCafe::updateDownstairsLaptopOS(const std::string newOS)
 {
     downstairsLaptop.operatingSystemVersion = newOS;
     std::cout << "update downstairs laptop's OS to " << newOS << "\n";
