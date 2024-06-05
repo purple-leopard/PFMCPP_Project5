@@ -556,6 +556,18 @@ struct MeteoSpaceNetwork
     JUCE_LEAK_DETECTOR(MeteoSpaceNetwork)
 };
 
+struct MeteoSpaceNetworkWrapper
+{
+    MeteoSpaceNetworkWrapper(MeteoSpaceNetwork* meteoSpaceNetwork) : meteoSpaceNetworkPtr(meteoSpaceNetwork) {}
+
+    ~MeteoSpaceNetworkWrapper()
+    {
+        delete meteoSpaceNetworkPtr;
+    }
+
+    MeteoSpaceNetwork* meteoSpaceNetworkPtr = nullptr;
+};
+
 MeteoSpaceNetwork::MeteoSpaceNetwork()
 {
     std::cout << "MeteoSpaceNetwork being constructed\n";
@@ -633,10 +645,10 @@ int main()
     internetCafeWrapper.internetCafePtr->fixDeadUpstairsLaptop(internetCafeWrapper.internetCafePtr->spareBattery);
     internetCafeWrapper.internetCafePtr->updateDownstairsLaptopOS("Sonoma");
 
-    MeteoSpaceNetwork bigWeather;
+    MeteoSpaceNetworkWrapper meteoSpaceNetworkWrapper(new MeteoSpaceNetwork);
 
-    bigWeather.recalibrateNetworkAntennas(2.368f);
-    bigWeather.adjustOrbitingNodeVelocity(8.3);
+    meteoSpaceNetworkWrapper.meteoSpaceNetworkPtr->recalibrateNetworkAntennas(2.368f);
+    meteoSpaceNetworkWrapper.meteoSpaceNetworkPtr->adjustOrbitingNodeVelocity(8.3);
 
     std::cout << "jack russel's weight: " << dogWrapper.dogPtr->weight << " kg" << "\n";
     dogWrapper.dogPtr->printWeight();
