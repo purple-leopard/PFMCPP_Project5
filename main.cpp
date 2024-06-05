@@ -428,6 +428,18 @@ struct WeatherSatellite
     JUCE_LEAK_DETECTOR(WeatherSatellite)
 };
 
+struct WeatherSatelliteWrapper
+{
+    WeatherSatelliteWrapper(WeatherSatellite* weatherSatellite) : weatherSatellitePtr(weatherSatellite) {}
+
+    ~WeatherSatelliteWrapper()
+    {
+        delete weatherSatellitePtr;
+    }
+
+    WeatherSatellite* weatherSatellitePtr = nullptr;
+};
+
 WeatherSatellite::WeatherSatellite() : attitude(45.7)
 {
     std::cout << "WeatherSatellite being constructed\n";
@@ -597,12 +609,12 @@ int main()
     laptopWrapper.laptopPtr->currentBattery.checkCapacityRemaining("FastGauge");
     laptopWrapper.laptopPtr->currentBattery.limitChargeCurrent(2.5f, 90.0f);
 
-    WeatherSatellite sputnik;
+    WeatherSatelliteWrapper weatherSatteliteWrapper(new WeatherSatellite);
 
-    sputnik.switchImagingModality();
-    sputnik.transmitDataToGroundStation();
-    sputnik.monitorBatteryChargeLevel();
-    sputnik.normalizeAttitude(48.0);
+    weatherSatteliteWrapper.weatherSatellitePtr->switchImagingModality();
+    weatherSatteliteWrapper.weatherSatellitePtr->transmitDataToGroundStation();
+    weatherSatteliteWrapper.weatherSatellitePtr->monitorBatteryChargeLevel();
+    weatherSatteliteWrapper.weatherSatellitePtr->normalizeAttitude(48.0);
 
     InternetCafe cafe3000;
 
@@ -622,8 +634,8 @@ int main()
     laptopWrapper.laptopPtr->printBrand();
     std::cout << "laptop's battery's charge capacity: " << laptopWrapper.laptopPtr->currentBattery.capacity << " mAh\n";
     laptopWrapper.laptopPtr->currentBattery.printChargeCapacity();
-    std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
-    sputnik.printOrbitalVelocity();
+    std::cout << "sputnik's orbital velocity is: " << weatherSatteliteWrapper.weatherSatellitePtr->orbitalVelocity << "*10^3 ms^-1\n";
+    weatherSatteliteWrapper.weatherSatellitePtr->printOrbitalVelocity();
 
     std::cout << "good to go!" << std::endl;
 }
