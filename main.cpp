@@ -419,11 +419,11 @@ struct WeatherSatellite
     double attitude;
     double orbitalVelocity = 7.8;
     float antennaCenterFrequency = 2.4f;
-    void switchImagingModality();
-    int transmitDataToGroundStation();
-    float monitorBatteryChargeLevel();
-    void normalizeAttitude(double targetAttitude);
-    void printOrbitalVelocity();
+    void switchImagingModality() const;
+    int transmitDataToGroundStation() const;
+    float monitorBatteryChargeLevel() const;
+    void normalizeAttitude(const double targetAttitude);
+    void printOrbitalVelocity() const;
 
     JUCE_LEAK_DETECTOR(WeatherSatellite)
 };
@@ -450,26 +450,26 @@ WeatherSatellite::~WeatherSatellite()
     std::cout << "WeatherSatellite being destructed\n";
 }
 
-void WeatherSatellite::switchImagingModality()
+void WeatherSatellite::switchImagingModality() const
 {
     std::cout << "satellite attitude is " <<  attitude << " degrees, switching imaging modality from visible to infrared\n";
 }
 
-int WeatherSatellite::transmitDataToGroundStation()
+int WeatherSatellite::transmitDataToGroundStation() const
 {
     int numberOfImagesTransmitted = 500;
     std::cout << "transmitted " << numberOfImagesTransmitted << " images\n";
     return numberOfImagesTransmitted;
 }
 
-float WeatherSatellite::monitorBatteryChargeLevel()
+float WeatherSatellite::monitorBatteryChargeLevel() const
 {
     float chargeLevel = 75.0f;
     std::cout << "current battery charge level is " << chargeLevel << "%\n";
     return chargeLevel;
 }
 
-void WeatherSatellite::normalizeAttitude(double targetAttitude)
+void WeatherSatellite::normalizeAttitude(const double targetAttitude)
 {
     std::cout << "starting attitude normalization from " << attitude << " degrees to " << targetAttitude << " degrees\n";
     while(attitude < targetAttitude)
@@ -484,7 +484,7 @@ void WeatherSatellite::normalizeAttitude(double targetAttitude)
     }
 }
 
-void WeatherSatellite::printOrbitalVelocity()
+void WeatherSatellite::printOrbitalVelocity() const
 {
     std::cout << "sputnik's orbital velocity is: " << this->orbitalVelocity << "*10^3 ms^-1\n";
 }
