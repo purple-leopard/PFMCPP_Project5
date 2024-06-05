@@ -293,6 +293,30 @@ struct Laptop
     JUCE_LEAK_DETECTOR(Laptop)
 };
 
+struct LaptopWrapper
+{
+    LaptopWrapper(Laptop* laptop) : laptopPtr(laptop) {}
+
+    ~LaptopWrapper()
+    {
+        delete laptopPtr;
+    }
+
+    Laptop* laptopPtr = nullptr;
+};
+
+struct LaptopBatteryWrapper
+{
+    LaptopBatteryWrapper(Laptop::Battery* laptopBattery) : laptopBatteryPtr(laptopBattery) {}
+
+    ~LaptopBatteryWrapper()
+    {
+        delete laptopBatteryPtr;
+    }
+
+    Laptop::Battery* laptopBatteryPtr = nullptr;
+};
+
 Laptop::Laptop() : model("Macbook")
 {
     std::cout << "Laptop being constructed\n";
@@ -561,17 +585,17 @@ int main()
     dogWrapper.dogPtr->currentCollar.jingleBell(4);
     dogWrapper.dogPtr->currentCollar.remove(true);
 
-    Laptop laptop;
-    Laptop::Battery replacementBattery;
+    LaptopWrapper laptopWrapper(new Laptop);
+    LaptopBatteryWrapper laptopBatteryWrapper(new Laptop::Battery);
 
-    laptop.replaceBattery(replacementBattery);
-    laptop.launchProgram("Logic");
-    laptop.invokeCompiler();
-    laptop.cycleCharge(laptop.currentBattery, 3);
-    laptop.currentBattery.charge(90.0f);
-    laptop.currentBattery.drain();
-    laptop.currentBattery.checkCapacityRemaining("FastGauge");
-    laptop.currentBattery.limitChargeCurrent(2.5f, 90.0f);
+    laptopWrapper.laptopPtr->replaceBattery(*laptopBatteryWrapper.laptopBatteryPtr);
+    laptopWrapper.laptopPtr->launchProgram("Logic");
+    laptopWrapper.laptopPtr->invokeCompiler();
+    laptopWrapper.laptopPtr->cycleCharge(laptopWrapper.laptopPtr->currentBattery, 3);
+    laptopWrapper.laptopPtr->currentBattery.charge(90.0f);
+    laptopWrapper.laptopPtr->currentBattery.drain();
+    laptopWrapper.laptopPtr->currentBattery.checkCapacityRemaining("FastGauge");
+    laptopWrapper.laptopPtr->currentBattery.limitChargeCurrent(2.5f, 90.0f);
 
     WeatherSatellite sputnik;
 
@@ -594,10 +618,10 @@ int main()
     dogWrapper.dogPtr->printWeight();
     std::cout << "jack russel's collar material: " << dogWrapper.dogPtr->currentCollar.material << "\n";
     dogWrapper.dogPtr->currentCollar.printCollarMaterial();
-    std::cout << "laptop brand: " << laptop.brand << "\n";
-    laptop.printBrand();
-    std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
-    laptop.currentBattery.printChargeCapacity();
+    std::cout << "laptop brand: " << laptopWrapper.laptopPtr->brand << "\n";
+    laptopWrapper.laptopPtr->printBrand();
+    std::cout << "laptop's battery's charge capacity: " << laptopWrapper.laptopPtr->currentBattery.capacity << " mAh\n";
+    laptopWrapper.laptopPtr->currentBattery.printChargeCapacity();
     std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
     sputnik.printOrbitalVelocity();
 
