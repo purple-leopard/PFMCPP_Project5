@@ -80,6 +80,7 @@ void Axe::aConstMemberFunction() const { }
 
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 /*
  copied UDT 1:
  */
@@ -103,20 +104,48 @@ struct Dog
         float length;
         float width;
 
-        void attachLeash(const std::string& leashType = "standard", bool isRetractable = false);
-        void remove(bool clipRelease = true);
-        bool adjustFit(float newSize, float minSize = 10.0f, float maxSize = 20.0f);
-        void jingleBell(int numJingles);
-        void printCollarMaterial();
+        void attachLeash(const std::string& leashType = "standard", const bool isRetractable = false);
+        void remove(const bool clipRelease = true);
+        bool adjustFit(const float newSize, const float minSize = 10.0f, const float maxSize = 20.0f);
+        void jingleBell(const int numJingles);
+        void printCollarMaterial() const;
+
+        JUCE_LEAK_DETECTOR(DogCollar)
     };
 
-    void barkAtPostman();
-    void fetchBall();
-    bool tryNewCollar(DogCollar newCollar);
-    void simulateAgeing(int yearsToAgeBy);
-    void printWeight();
+    void barkAtPostman() const;
+    void fetchBall() const;
+    bool tryNewCollar(const DogCollar& newCollar);
+    void simulateAgeing(const int yearsToAgeBy);
+    void printWeight() const;
 
     DogCollar currentCollar;
+
+    JUCE_LEAK_DETECTOR(Dog)
+};
+
+struct DogWrapper
+{
+    DogWrapper(Dog* dog) : dogPtr(dog) {}
+
+    ~DogWrapper()
+    {
+        delete dogPtr;
+    }
+
+    Dog* dogPtr = nullptr;
+};
+
+struct DogCollarWrapper
+{
+    DogCollarWrapper(Dog::DogCollar* dogCollar) : dogCollarPtr(dogCollar) {}
+
+    ~DogCollarWrapper()
+    {
+        delete dogCollarPtr;
+    }
+
+    Dog::DogCollar* dogCollarPtr = nullptr;
 };
 
 Dog::Dog() : weight(1.0f), height(0.5f), ageInYears(1), furColour("brown"), breed("Jack Russel")
@@ -139,17 +168,17 @@ Dog::DogCollar::~DogCollar()
     std::cout << "DogCollar being destructed\n";
 }
 
-void Dog::DogCollar::attachLeash(const std::string& leashType, bool isRetractable)
+void Dog::DogCollar::attachLeash(const std::string& leashType, const bool isRetractable)
 {
     std::cout << "leash material: " << material << ", leash type: " << leashType << ", leash retractable: " << isRetractable << "\n";
 }
 
-void Dog::DogCollar::remove(bool clipRelease)
+void Dog::DogCollar::remove(const bool clipRelease)
 {
     std::cout << (clipRelease ? "clip released\n" : "clip not released\n");
 }
 
-bool Dog::DogCollar::adjustFit(float newSize, float minSize, float maxSize) 
+bool Dog::DogCollar::adjustFit(const float newSize, const float minSize, const float maxSize) 
 {
     if (newSize >= minSize && newSize <= maxSize) 
     {
@@ -161,7 +190,7 @@ bool Dog::DogCollar::adjustFit(float newSize, float minSize, float maxSize)
     return false;
 }
 
-void Dog::DogCollar::jingleBell(int numJingles)
+void Dog::DogCollar::jingleBell(const int numJingles)
 {
     std::cout << "collar bell goes:\n";
     for(int count = 0; count < numJingles; ++count)
@@ -170,22 +199,22 @@ void Dog::DogCollar::jingleBell(int numJingles)
     }
 }
 
-void Dog::DogCollar::printCollarMaterial()
+void Dog::DogCollar::printCollarMaterial() const
 {
     std::cout << "dog's collar material: " << this->material << "\n";
 }
 
-void Dog::barkAtPostman() 
+void Dog::barkAtPostman() const
 {
     std::cout << furColour << " colour dog is barking at the postman\n";
 }
 
-void Dog::fetchBall()
+void Dog::fetchBall() const
 {
     std::cout << "fetch\n";
 }
 
-bool Dog::tryNewCollar(DogCollar newCollar) 
+bool Dog::tryNewCollar(const DogCollar& newCollar) 
 {
     if (newCollar.length >= 10.0f && newCollar.length <= 20.0f) 
     {
@@ -197,7 +226,7 @@ bool Dog::tryNewCollar(DogCollar newCollar)
     return false;
 }
 
-void Dog::simulateAgeing(int yearsToAgeBy)
+void Dog::simulateAgeing(const int yearsToAgeBy)
 {
     int year = 0;
     while(year < yearsToAgeBy)
@@ -217,7 +246,7 @@ void Dog::simulateAgeing(int yearsToAgeBy)
     }
 }
 
-void Dog::printWeight()
+void Dog::printWeight() const
 {
     std::cout << "dog's weight: " << this->weight << " kg" << "\n";
 }
@@ -244,20 +273,48 @@ struct Laptop
         float maxChargeCurrent = 2.0f;
         float voltage = 18.0f;
 
-        bool charge(float chargeToLevel = 100.0f);
+        bool charge(const float chargeToLevel = 100.0f);
         float checkCapacityRemaining(const std::string& fuelGuageAlgorithm = "ModelGauge");
-        void limitChargeCurrent(float inputCurrent, float temperatureLimit = 85.8f);
+        void limitChargeCurrent(float inputCurrent, const float temperatureLimit = 85.8f);
         void drain();
-        void printChargeCapacity();
+        void printChargeCapacity() const;
+
+        JUCE_LEAK_DETECTOR(Battery)
     };
 
-    void replaceBattery(Battery newBattery);
+    void replaceBattery(const Battery& newBattery);
     bool launchProgram(const std::string& programName);
-    bool invokeCompiler();
-    void cycleCharge(Battery battery, int numCycles);
-    void printBrand();
+    bool invokeCompiler() const;
+    void cycleCharge(Battery& battery, const int numCycles);
+    void printBrand() const;
 
     Battery currentBattery;
+
+    JUCE_LEAK_DETECTOR(Laptop)
+};
+
+struct LaptopWrapper
+{
+    LaptopWrapper(Laptop* laptop) : laptopPtr(laptop) {}
+
+    ~LaptopWrapper()
+    {
+        delete laptopPtr;
+    }
+
+    Laptop* laptopPtr = nullptr;
+};
+
+struct LaptopBatteryWrapper
+{
+    LaptopBatteryWrapper(Laptop::Battery* laptopBattery) : laptopBatteryPtr(laptopBattery) {}
+
+    ~LaptopBatteryWrapper()
+    {
+        delete laptopBatteryPtr;
+    }
+
+    Laptop::Battery* laptopBatteryPtr = nullptr;
 };
 
 Laptop::Laptop() : model("Macbook")
@@ -280,7 +337,7 @@ Laptop::Battery::~Battery()
     std::cout << "Battery being destructed\n";
 }
 
-bool Laptop::Battery::charge(float chargeToLevel) 
+bool Laptop::Battery::charge(const float chargeToLevel) 
 {
     float chargeLevel = 75.0f;
     std::cout << "battery charging to level: " << chargeToLevel << "%\n";
@@ -294,7 +351,7 @@ float Laptop::Battery::checkCapacityRemaining(const std::string& fuelGuageAlgori
     return capacityRemaining;
 }
 
-void Laptop::Battery::limitChargeCurrent(float inputCurrent, float temperatureLimit) 
+void Laptop::Battery::limitChargeCurrent(float inputCurrent, const float temperatureLimit) 
 {
     float temperature = 38.0f;
     if (inputCurrent > maxChargeCurrent || temperature > temperatureLimit) 
@@ -314,12 +371,12 @@ void Laptop::Battery::drain()
     std::cout << "battery low, please recharge\n";
 }
 
-void Laptop::Battery::printChargeCapacity()
+void Laptop::Battery::printChargeCapacity() const
 {
     std::cout << "laptop's battery's charge capacity: " << this->capacity << " mAh\n";
 }
 
-void Laptop::replaceBattery(Battery newBattery) 
+void Laptop::replaceBattery(const Battery& newBattery) 
 {
     currentBattery = newBattery;
     std::cout << model <<" battery replaced with type: " << newBattery.type << "\n";
@@ -331,13 +388,13 @@ bool Laptop::launchProgram(const std::string& programName)
     return true;
 }
 
-bool Laptop::invokeCompiler() 
+bool Laptop::invokeCompiler() const
 {
     std::cout << "compiler invoked" << "\n";
     return true;
 }
 
-void Laptop::cycleCharge(Battery battery, int numCycles)
+void Laptop::cycleCharge(Battery& battery, const int numCycles)
 {
     for(int i = 0; i < numCycles; ++i)
     {
@@ -346,7 +403,7 @@ void Laptop::cycleCharge(Battery battery, int numCycles)
     }
 }
 
-void Laptop::printBrand()
+void Laptop::printBrand() const
 {
     std::cout << "laptop brand: " << this->brand << "\n";
 }
@@ -362,11 +419,25 @@ struct WeatherSatellite
     double attitude;
     double orbitalVelocity = 7.8;
     float antennaCenterFrequency = 2.4f;
-    void switchImagingModality();
-    int transmitDataToGroundStation();
-    float monitorBatteryChargeLevel();
-    void normalizeAttitude(double targetAttitude);
-    void printOrbitalVelocity();
+    void switchImagingModality() const;
+    int transmitDataToGroundStation() const;
+    float monitorBatteryChargeLevel() const;
+    void normalizeAttitude(const double targetAttitude);
+    void printOrbitalVelocity() const;
+
+    JUCE_LEAK_DETECTOR(WeatherSatellite)
+};
+
+struct WeatherSatelliteWrapper
+{
+    WeatherSatelliteWrapper(WeatherSatellite* weatherSatellite) : weatherSatellitePtr(weatherSatellite) {}
+
+    ~WeatherSatelliteWrapper()
+    {
+        delete weatherSatellitePtr;
+    }
+
+    WeatherSatellite* weatherSatellitePtr = nullptr;
 };
 
 WeatherSatellite::WeatherSatellite() : attitude(45.7)
@@ -379,26 +450,26 @@ WeatherSatellite::~WeatherSatellite()
     std::cout << "WeatherSatellite being destructed\n";
 }
 
-void WeatherSatellite::switchImagingModality()
+void WeatherSatellite::switchImagingModality() const
 {
     std::cout << "satellite attitude is " <<  attitude << " degrees, switching imaging modality from visible to infrared\n";
 }
 
-int WeatherSatellite::transmitDataToGroundStation()
+int WeatherSatellite::transmitDataToGroundStation() const
 {
     int numberOfImagesTransmitted = 500;
     std::cout << "transmitted " << numberOfImagesTransmitted << " images\n";
     return numberOfImagesTransmitted;
 }
 
-float WeatherSatellite::monitorBatteryChargeLevel()
+float WeatherSatellite::monitorBatteryChargeLevel() const
 {
     float chargeLevel = 75.0f;
     std::cout << "current battery charge level is " << chargeLevel << "%\n";
     return chargeLevel;
 }
 
-void WeatherSatellite::normalizeAttitude(double targetAttitude)
+void WeatherSatellite::normalizeAttitude(const double targetAttitude)
 {
     std::cout << "starting attitude normalization from " << attitude << " degrees to " << targetAttitude << " degrees\n";
     while(attitude < targetAttitude)
@@ -413,7 +484,7 @@ void WeatherSatellite::normalizeAttitude(double targetAttitude)
     }
 }
 
-void WeatherSatellite::printOrbitalVelocity()
+void WeatherSatellite::printOrbitalVelocity() const
 {
     std::cout << "sputnik's orbital velocity is: " << this->orbitalVelocity << "*10^3 ms^-1\n";
 }
@@ -428,8 +499,22 @@ struct InternetCafe
     Laptop upstairsLaptop;
     Laptop downstairsLaptop;
     Laptop::Battery spareBattery;
-    void fixDeadUpstairsLaptop(Laptop::Battery replacementBattery);
-    void updateDownstairsLaptopOS(std::string newOS);
+    void fixDeadUpstairsLaptop(const Laptop::Battery& replacementBattery);
+    void updateDownstairsLaptopOS(const std::string& newOS);
+
+    JUCE_LEAK_DETECTOR(InternetCafe)
+};
+
+struct InternetCafeWrapper
+{
+    InternetCafeWrapper(InternetCafe* internetCafe) : internetCafePtr(internetCafe) {}
+
+    ~InternetCafeWrapper()
+    {
+        delete internetCafePtr;
+    }
+
+    InternetCafe* internetCafePtr = nullptr;
 };
 
 InternetCafe::InternetCafe()
@@ -445,12 +530,12 @@ InternetCafe::~InternetCafe()
     std::cout << "InternetCafe being destructed\n";
 }
 
-void InternetCafe::fixDeadUpstairsLaptop(Laptop::Battery replacementBattery)
+void InternetCafe::fixDeadUpstairsLaptop(const Laptop::Battery& replacementBattery)
 {
     upstairsLaptop.replaceBattery(replacementBattery);
 }
 
-void InternetCafe::updateDownstairsLaptopOS(std::string newOS)
+void InternetCafe::updateDownstairsLaptopOS(const std::string& newOS)
 {
     downstairsLaptop.operatingSystemVersion = newOS;
     std::cout << "update downstairs laptop's OS to " << newOS << "\n";
@@ -465,8 +550,22 @@ struct MeteoSpaceNetwork
     ~MeteoSpaceNetwork();
     WeatherSatellite geostationarySat;
     WeatherSatellite lowOrbitalSat;
-    void recalibrateNetworkAntennas(float newFreq);
-    void adjustOrbitingNodeVelocity(double targetVelocity);
+    void recalibrateNetworkAntennas(const float newFreq);
+    void adjustOrbitingNodeVelocity(const double targetVelocity);
+
+    JUCE_LEAK_DETECTOR(MeteoSpaceNetwork)
+};
+
+struct MeteoSpaceNetworkWrapper
+{
+    MeteoSpaceNetworkWrapper(MeteoSpaceNetwork* meteoSpaceNetwork) : meteoSpaceNetworkPtr(meteoSpaceNetwork) {}
+
+    ~MeteoSpaceNetworkWrapper()
+    {
+        delete meteoSpaceNetworkPtr;
+    }
+
+    MeteoSpaceNetwork* meteoSpaceNetworkPtr = nullptr;
 };
 
 MeteoSpaceNetwork::MeteoSpaceNetwork()
@@ -481,14 +580,14 @@ MeteoSpaceNetwork::~MeteoSpaceNetwork()
     std::cout << "MeteoSpaceNetwork being destructed\n";
 }
 
-void MeteoSpaceNetwork::recalibrateNetworkAntennas(float newFreq)
+void MeteoSpaceNetwork::recalibrateNetworkAntennas(const float newFreq)
 {
     std::cout << "recalibrating satellite antennas to " << newFreq << " GHz\n";
     geostationarySat.antennaCenterFrequency = newFreq;
     lowOrbitalSat.antennaCenterFrequency = newFreq;
 }
 
-void MeteoSpaceNetwork::adjustOrbitingNodeVelocity(double targetVelocity)
+void MeteoSpaceNetwork::adjustOrbitingNodeVelocity(const double targetVelocity)
 {
     std::cout << "adjusting orbital velocity of orbiting satellite to " << targetVelocity << "*10^3 ms^-1\n";
     lowOrbitalSat.orbitalVelocity = targetVelocity;
@@ -510,57 +609,57 @@ void MeteoSpaceNetwork::adjustOrbitingNodeVelocity(double targetVelocity)
 
 int main()
 {
-    Dog jackRussel;
-    Dog::DogCollar pinkCollar;
+    DogWrapper dogWrapper(new Dog);
+    DogCollarWrapper dogCollarWrapper(new Dog::DogCollar);
     
-    jackRussel.barkAtPostman();
-    jackRussel.fetchBall();
-    jackRussel.tryNewCollar(pinkCollar);
-    jackRussel.simulateAgeing(8);
-    jackRussel.currentCollar.attachLeash("gangster", true);
-    jackRussel.currentCollar.adjustFit(15, 10.0f, 20.0f);
-    jackRussel.currentCollar.jingleBell(4);
-    jackRussel.currentCollar.remove(true);
+    dogWrapper.dogPtr->barkAtPostman();
+    dogWrapper.dogPtr->fetchBall();
+    dogWrapper.dogPtr->tryNewCollar(*dogCollarWrapper.dogCollarPtr);
+    dogWrapper.dogPtr->simulateAgeing(8);
+    dogWrapper.dogPtr->currentCollar.attachLeash("gangster", true);
+    dogWrapper.dogPtr->currentCollar.adjustFit(15, 10.0f, 20.0f);
+    dogWrapper.dogPtr->currentCollar.jingleBell(4);
+    dogWrapper.dogPtr->currentCollar.remove(true);
 
-    Laptop laptop;
-    Laptop::Battery replacementBattery;
+    LaptopWrapper laptopWrapper(new Laptop);
+    LaptopBatteryWrapper laptopBatteryWrapper(new Laptop::Battery);
 
-    laptop.replaceBattery(replacementBattery);
-    laptop.launchProgram("Logic");
-    laptop.invokeCompiler();
-    laptop.cycleCharge(laptop.currentBattery, 3);
-    laptop.currentBattery.charge(90.0f);
-    laptop.currentBattery.drain();
-    laptop.currentBattery.checkCapacityRemaining("FastGauge");
-    laptop.currentBattery.limitChargeCurrent(2.5f, 90.0f);
+    laptopWrapper.laptopPtr->replaceBattery(*laptopBatteryWrapper.laptopBatteryPtr);
+    laptopWrapper.laptopPtr->launchProgram("Logic");
+    laptopWrapper.laptopPtr->invokeCompiler();
+    laptopWrapper.laptopPtr->cycleCharge(laptopWrapper.laptopPtr->currentBattery, 3);
+    laptopWrapper.laptopPtr->currentBattery.charge(90.0f);
+    laptopWrapper.laptopPtr->currentBattery.drain();
+    laptopWrapper.laptopPtr->currentBattery.checkCapacityRemaining("FastGauge");
+    laptopWrapper.laptopPtr->currentBattery.limitChargeCurrent(2.5f, 90.0f);
 
-    WeatherSatellite sputnik;
+    WeatherSatelliteWrapper weatherSatteliteWrapper(new WeatherSatellite);
 
-    sputnik.switchImagingModality();
-    sputnik.transmitDataToGroundStation();
-    sputnik.monitorBatteryChargeLevel();
-    sputnik.normalizeAttitude(48.0);
+    weatherSatteliteWrapper.weatherSatellitePtr->switchImagingModality();
+    weatherSatteliteWrapper.weatherSatellitePtr->transmitDataToGroundStation();
+    weatherSatteliteWrapper.weatherSatellitePtr->monitorBatteryChargeLevel();
+    weatherSatteliteWrapper.weatherSatellitePtr->normalizeAttitude(48.0);
 
-    InternetCafe cafe3000;
+    InternetCafeWrapper internetCafeWrapper(new InternetCafe);
 
-    cafe3000.fixDeadUpstairsLaptop(cafe3000.spareBattery);
-    cafe3000.updateDownstairsLaptopOS("Sonoma");
+    internetCafeWrapper.internetCafePtr->fixDeadUpstairsLaptop(internetCafeWrapper.internetCafePtr->spareBattery);
+    internetCafeWrapper.internetCafePtr->updateDownstairsLaptopOS("Sonoma");
 
-    MeteoSpaceNetwork bigWeather;
+    MeteoSpaceNetworkWrapper meteoSpaceNetworkWrapper(new MeteoSpaceNetwork);
 
-    bigWeather.recalibrateNetworkAntennas(2.368f);
-    bigWeather.adjustOrbitingNodeVelocity(8.3);
+    meteoSpaceNetworkWrapper.meteoSpaceNetworkPtr->recalibrateNetworkAntennas(2.368f);
+    meteoSpaceNetworkWrapper.meteoSpaceNetworkPtr->adjustOrbitingNodeVelocity(8.3);
 
-    std::cout << "jack russel's weight: " << jackRussel.weight << " kg" << "\n";
-    jackRussel.printWeight();
-    std::cout << "jack russel's collar material: " << jackRussel.currentCollar.material << "\n";
-    jackRussel.currentCollar.printCollarMaterial();
-    std::cout << "laptop brand: " << laptop.brand << "\n";
-    laptop.printBrand();
-    std::cout << "laptop's battery's charge capacity: " << laptop.currentBattery.capacity << " mAh\n";
-    laptop.currentBattery.printChargeCapacity();
-    std::cout << "sputnik's orbital velocity is: " << sputnik.orbitalVelocity << "*10^3 ms^-1\n";
-    sputnik.printOrbitalVelocity();
+    std::cout << "jack russel's weight: " << dogWrapper.dogPtr->weight << " kg" << "\n";
+    dogWrapper.dogPtr->printWeight();
+    std::cout << "jack russel's collar material: " << dogWrapper.dogPtr->currentCollar.material << "\n";
+    dogWrapper.dogPtr->currentCollar.printCollarMaterial();
+    std::cout << "laptop brand: " << laptopWrapper.laptopPtr->brand << "\n";
+    laptopWrapper.laptopPtr->printBrand();
+    std::cout << "laptop's battery's charge capacity: " << laptopWrapper.laptopPtr->currentBattery.capacity << " mAh\n";
+    laptopWrapper.laptopPtr->currentBattery.printChargeCapacity();
+    std::cout << "sputnik's orbital velocity is: " << weatherSatteliteWrapper.weatherSatellitePtr->orbitalVelocity << "*10^3 ms^-1\n";
+    weatherSatteliteWrapper.weatherSatellitePtr->printOrbitalVelocity();
 
     std::cout << "good to go!" << std::endl;
 }
