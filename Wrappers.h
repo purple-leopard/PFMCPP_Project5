@@ -39,12 +39,8 @@ struct LaptopBatteryWrapper
 
 struct WeatherSatelliteWrapper
 {
-    WeatherSatelliteWrapper(WeatherSatellite* weatherSatellite) : weatherSatellitePtr(weatherSatellite) {}
-
-    ~WeatherSatelliteWrapper()
-    {
-        delete weatherSatellitePtr;
-    }
+    WeatherSatelliteWrapper(WeatherSatellite* weatherSatellite);
+    ~WeatherSatelliteWrapper();
 
     WeatherSatellite* weatherSatellitePtr = nullptr;
 };

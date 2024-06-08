@@ -27,3 +27,10 @@ LaptopBatteryWrapper::~LaptopBatteryWrapper()
 {
     delete laptopBatteryPtr;
 }
+
+WeatherSatelliteWrapper::WeatherSatelliteWrapper(WeatherSatellite* weatherSatellite) : weatherSatellitePtr(weatherSatellite) {}
+
+WeatherSatelliteWrapper::~WeatherSatelliteWrapper()
+{
+    delete weatherSatellitePtr;
+}
