@@ -73,6 +73,7 @@ void Axe::aConstMemberFunction() const { }
 #include "Laptop.h"
 #include "WeatherSatellite.h"
 #include "InternetCafe.h"
+#include "MeteoSpaceNetwork.h"
 
 struct DogWrapper
 {
@@ -146,22 +147,6 @@ struct InternetCafeWrapper
     InternetCafe* internetCafePtr = nullptr;
 };
 
-/*
- new UDT 5:
- with 2 member functions
- */
-struct MeteoSpaceNetwork
-{
-    MeteoSpaceNetwork();
-    ~MeteoSpaceNetwork();
-    WeatherSatellite geostationarySat;
-    WeatherSatellite lowOrbitalSat;
-    void recalibrateNetworkAntennas(const float newFreq);
-    void adjustOrbitingNodeVelocity(const double targetVelocity);
-
-    JUCE_LEAK_DETECTOR(MeteoSpaceNetwork)
-};
-
 struct MeteoSpaceNetworkWrapper
 {
     MeteoSpaceNetworkWrapper(MeteoSpaceNetwork* meteoSpaceNetwork) : meteoSpaceNetworkPtr(meteoSpaceNetwork) {}
@@ -173,31 +158,6 @@ struct MeteoSpaceNetworkWrapper
 
     MeteoSpaceNetwork* meteoSpaceNetworkPtr = nullptr;
 };
-
-MeteoSpaceNetwork::MeteoSpaceNetwork()
-{
-    std::cout << "MeteoSpaceNetwork being constructed\n";
-    geostationarySat.normalizeAttitude(50.1);
-    lowOrbitalSat.normalizeAttitude(49.3);
-}
-
-MeteoSpaceNetwork::~MeteoSpaceNetwork()
-{
-    std::cout << "MeteoSpaceNetwork being destructed\n";
-}
-
-void MeteoSpaceNetwork::recalibrateNetworkAntennas(const float newFreq)
-{
-    std::cout << "recalibrating satellite antennas to " << newFreq << " GHz\n";
-    geostationarySat.antennaCenterFrequency = newFreq;
-    lowOrbitalSat.antennaCenterFrequency = newFreq;
-}
-
-void MeteoSpaceNetwork::adjustOrbitingNodeVelocity(const double targetVelocity)
-{
-    std::cout << "adjusting orbital velocity of orbiting satellite to " << targetVelocity << "*10^3 ms^-1\n";
-    lowOrbitalSat.orbitalVelocity = targetVelocity;
-}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
