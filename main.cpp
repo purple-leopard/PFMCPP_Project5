@@ -69,95 +69,12 @@ void Axe::aConstMemberFunction() const { }
 
 #include <iostream>
 #include "LeakedObjectDetector.h"
+#include "Wrappers.h"
 #include "Dog.h"
 #include "Laptop.h"
 #include "WeatherSatellite.h"
 #include "InternetCafe.h"
 #include "MeteoSpaceNetwork.h"
-
-struct DogWrapper
-{
-    DogWrapper(Dog* dog) : dogPtr(dog) {}
-
-    ~DogWrapper()
-    {
-        delete dogPtr;
-    }
-
-    Dog* dogPtr = nullptr;
-};
-
-struct DogCollarWrapper
-{
-    DogCollarWrapper(Dog::DogCollar* dogCollar) : dogCollarPtr(dogCollar) {}
-
-    ~DogCollarWrapper()
-    {
-        delete dogCollarPtr;
-    }
-
-    Dog::DogCollar* dogCollarPtr = nullptr;
-};
-
-struct LaptopWrapper
-{
-    LaptopWrapper(Laptop* laptop) : laptopPtr(laptop) {}
-
-    ~LaptopWrapper()
-    {
-        delete laptopPtr;
-    }
-
-    Laptop* laptopPtr = nullptr;
-};
-
-struct LaptopBatteryWrapper
-{
-    LaptopBatteryWrapper(Laptop::Battery* laptopBattery) : laptopBatteryPtr(laptopBattery) {}
-
-    ~LaptopBatteryWrapper()
-    {
-        delete laptopBatteryPtr;
-    }
-
-    Laptop::Battery* laptopBatteryPtr = nullptr;
-};
-
-struct WeatherSatelliteWrapper
-{
-    WeatherSatelliteWrapper(WeatherSatellite* weatherSatellite) : weatherSatellitePtr(weatherSatellite) {}
-
-    ~WeatherSatelliteWrapper()
-    {
-        delete weatherSatellitePtr;
-    }
-
-    WeatherSatellite* weatherSatellitePtr = nullptr;
-};
-
-struct InternetCafeWrapper
-{
-    InternetCafeWrapper(InternetCafe* internetCafe) : internetCafePtr(internetCafe) {}
-
-    ~InternetCafeWrapper()
-    {
-        delete internetCafePtr;
-    }
-
-    InternetCafe* internetCafePtr = nullptr;
-};
-
-struct MeteoSpaceNetworkWrapper
-{
-    MeteoSpaceNetworkWrapper(MeteoSpaceNetwork* meteoSpaceNetwork) : meteoSpaceNetworkPtr(meteoSpaceNetwork) {}
-
-    ~MeteoSpaceNetworkWrapper()
-    {
-        delete meteoSpaceNetworkPtr;
-    }
-
-    MeteoSpaceNetwork* meteoSpaceNetworkPtr = nullptr;
-};
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
