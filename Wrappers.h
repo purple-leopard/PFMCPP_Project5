@@ -7,12 +7,8 @@
 
 struct DogWrapper
 {
-    DogWrapper(Dog* dog) : dogPtr(dog) {}
-
-    ~DogWrapper()
-    {
-        delete dogPtr;
-    }
+    DogWrapper(Dog* dog);
+    ~DogWrapper();
 
     Dog* dogPtr = nullptr;
 };
