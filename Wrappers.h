@@ -23,12 +23,8 @@ struct DogCollarWrapper
 
 struct LaptopWrapper
 {
-    LaptopWrapper(Laptop* laptop) : laptopPtr(laptop) {}
-
-    ~LaptopWrapper()
-    {
-        delete laptopPtr;
-    }
+    LaptopWrapper(Laptop* laptop);
+    ~LaptopWrapper();
 
     Laptop* laptopPtr = nullptr;
 };

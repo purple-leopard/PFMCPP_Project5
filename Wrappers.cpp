@@ -13,3 +13,10 @@ DogCollarWrapper::~DogCollarWrapper()
 {
     delete dogCollarPtr;
 }
+
+LaptopWrapper::LaptopWrapper(Laptop* laptop) : laptopPtr(laptop) {}
+
+LaptopWrapper::~LaptopWrapper()
+{
+    delete laptopPtr;
+}
