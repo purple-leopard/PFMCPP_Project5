@@ -34,3 +34,10 @@ WeatherSatelliteWrapper::~WeatherSatelliteWrapper()
 {
     delete weatherSatellitePtr;
 }
+
+InternetCafeWrapper::InternetCafeWrapper(InternetCafe* internetCafe) : internetCafePtr(internetCafe) {}
+
+InternetCafeWrapper::~InternetCafeWrapper()
+{
+    delete internetCafePtr;
+}

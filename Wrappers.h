@@ -47,12 +47,8 @@ struct WeatherSatelliteWrapper
 
 struct InternetCafeWrapper
 {
-    InternetCafeWrapper(InternetCafe* internetCafe) : internetCafePtr(internetCafe) {}
-
-    ~InternetCafeWrapper()
-    {
-        delete internetCafePtr;
-    }
+    InternetCafeWrapper(InternetCafe* internetCafe);
+    ~InternetCafeWrapper();
 
     InternetCafe* internetCafePtr = nullptr;
 };
