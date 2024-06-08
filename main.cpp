@@ -71,6 +71,7 @@ void Axe::aConstMemberFunction() const { }
 #include "LeakedObjectDetector.h"
 #include "Dog.h"
 #include "Laptop.h"
+#include "WeatherSatellite.h"
 
 struct DogWrapper
 {
@@ -120,27 +121,6 @@ struct LaptopBatteryWrapper
     Laptop::Battery* laptopBatteryPtr = nullptr;
 };
 
-/*
- copied UDT 3:
- */
-struct WeatherSatellite
-{
-    WeatherSatellite();
-    ~WeatherSatellite();
-    int numberOfSolarPanels = 8;
-    std::string radiationHardeningType = "Standard";
-    double attitude;
-    double orbitalVelocity = 7.8;
-    float antennaCenterFrequency = 2.4f;
-    void switchImagingModality() const;
-    int transmitDataToGroundStation() const;
-    float monitorBatteryChargeLevel() const;
-    void normalizeAttitude(const double targetAttitude);
-    void printOrbitalVelocity() const;
-
-    JUCE_LEAK_DETECTOR(WeatherSatellite)
-};
-
 struct WeatherSatelliteWrapper
 {
     WeatherSatelliteWrapper(WeatherSatellite* weatherSatellite) : weatherSatellitePtr(weatherSatellite) {}
@@ -153,54 +133,6 @@ struct WeatherSatelliteWrapper
     WeatherSatellite* weatherSatellitePtr = nullptr;
 };
 
-WeatherSatellite::WeatherSatellite() : attitude(45.7)
-{
-    std::cout << "WeatherSatellite being constructed\n";
-}
-
-WeatherSatellite::~WeatherSatellite()
-{
-    std::cout << "WeatherSatellite being destructed\n";
-}
-
-void WeatherSatellite::switchImagingModality() const
-{
-    std::cout << "satellite attitude is " <<  attitude << " degrees, switching imaging modality from visible to infrared\n";
-}
-
-int WeatherSatellite::transmitDataToGroundStation() const
-{
-    int numberOfImagesTransmitted = 500;
-    std::cout << "transmitted " << numberOfImagesTransmitted << " images\n";
-    return numberOfImagesTransmitted;
-}
-
-float WeatherSatellite::monitorBatteryChargeLevel() const
-{
-    float chargeLevel = 75.0f;
-    std::cout << "current battery charge level is " << chargeLevel << "%\n";
-    return chargeLevel;
-}
-
-void WeatherSatellite::normalizeAttitude(const double targetAttitude)
-{
-    std::cout << "starting attitude normalization from " << attitude << " degrees to " << targetAttitude << " degrees\n";
-    while(attitude < targetAttitude)
-    {
-        attitude += 0.5;
-        std::cout << "adjusting, current attitude: " << attitude << " degrees\n";
-        if(attitude >= targetAttitude)
-        {
-            std::cout << "target attitude achieved\n";
-            break; 
-        }
-    }
-}
-
-void WeatherSatellite::printOrbitalVelocity() const
-{
-    std::cout << "sputnik's orbital velocity is: " << this->orbitalVelocity << "*10^3 ms^-1\n";
-}
 /*
  new UDT 4:
  with 2 member functions
