@@ -1,4 +1,7 @@
 #include "Wrappers.h"
+#include "WeatherSatellite.h"
+#include "InternetCafe.h"
+#include "MeteoSpaceNetwork.h"
 
 DogWrapper::DogWrapper(Dog* dog) : dogPtr(dog) {}
 

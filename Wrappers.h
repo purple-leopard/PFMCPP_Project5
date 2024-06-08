@@ -1,9 +1,10 @@
 #pragma once
 #include "Dog.h"
 #include "Laptop.h"
-#include "WeatherSatellite.h"
-#include "InternetCafe.h"
-#include "MeteoSpaceNetwork.h"
+
+struct WeatherSatellite;
+struct InternetCafe;
+struct MeteoSpaceNetwork;
 
 struct DogWrapper
 {
