@@ -72,6 +72,7 @@ void Axe::aConstMemberFunction() const { }
 #include "Dog.h"
 #include "Laptop.h"
 #include "WeatherSatellite.h"
+#include "InternetCafe.h"
 
 struct DogWrapper
 {
@@ -133,23 +134,6 @@ struct WeatherSatelliteWrapper
     WeatherSatellite* weatherSatellitePtr = nullptr;
 };
 
-/*
- new UDT 4:
- with 2 member functions
- */
-struct InternetCafe
-{
-    InternetCafe();
-    ~InternetCafe();
-    Laptop upstairsLaptop;
-    Laptop downstairsLaptop;
-    Laptop::Battery spareBattery;
-    void fixDeadUpstairsLaptop(const Laptop::Battery& replacementBattery);
-    void updateDownstairsLaptopOS(const std::string& newOS);
-
-    JUCE_LEAK_DETECTOR(InternetCafe)
-};
-
 struct InternetCafeWrapper
 {
     InternetCafeWrapper(InternetCafe* internetCafe) : internetCafePtr(internetCafe) {}
@@ -162,29 +146,6 @@ struct InternetCafeWrapper
     InternetCafe* internetCafePtr = nullptr;
 };
 
-InternetCafe::InternetCafe()
-{
-    std::cout << "InternetCafe being constructed\n";
-    upstairsLaptop.currentBattery.charge(100.0f);
-    downstairsLaptop.currentBattery.charge(100.0f);
-    spareBattery.charge(100.0f);
-}
-
-InternetCafe::~InternetCafe()
-{
-    std::cout << "InternetCafe being destructed\n";
-}
-
-void InternetCafe::fixDeadUpstairsLaptop(const Laptop::Battery& replacementBattery)
-{
-    upstairsLaptop.replaceBattery(replacementBattery);
-}
-
-void InternetCafe::updateDownstairsLaptopOS(const std::string& newOS)
-{
-    downstairsLaptop.operatingSystemVersion = newOS;
-    std::cout << "update downstairs laptop's OS to " << newOS << "\n";
-}
 /*
  new UDT 5:
  with 2 member functions
