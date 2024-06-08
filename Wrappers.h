@@ -15,12 +15,8 @@ struct DogWrapper
 
 struct DogCollarWrapper
 {
-    DogCollarWrapper(Dog::DogCollar* dogCollar) : dogCollarPtr(dogCollar) {}
-
-    ~DogCollarWrapper()
-    {
-        delete dogCollarPtr;
-    }
+    DogCollarWrapper(Dog::DogCollar* dogCollar);
+    ~DogCollarWrapper();
 
     Dog::DogCollar* dogCollarPtr = nullptr;
 };

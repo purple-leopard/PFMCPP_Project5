@@ -6,3 +6,10 @@ DogWrapper::~DogWrapper()
 {
     delete dogPtr;
 }
+
+DogCollarWrapper::DogCollarWrapper(Dog::DogCollar* dogCollar) : dogCollarPtr(dogCollar) {}
+
+DogCollarWrapper::~DogCollarWrapper()
+{
+    delete dogCollarPtr;
+}
