@@ -41,3 +41,10 @@ InternetCafeWrapper::~InternetCafeWrapper()
 {
     delete internetCafePtr;
 }
+
+MeteoSpaceNetworkWrapper::MeteoSpaceNetworkWrapper(MeteoSpaceNetwork* meteoSpaceNetwork) : meteoSpaceNetworkPtr(meteoSpaceNetwork) {}
+
+MeteoSpaceNetworkWrapper::~MeteoSpaceNetworkWrapper()
+{
+    delete meteoSpaceNetworkPtr;
+}

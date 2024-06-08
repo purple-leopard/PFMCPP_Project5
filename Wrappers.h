@@ -55,12 +55,8 @@ struct InternetCafeWrapper
 
 struct MeteoSpaceNetworkWrapper
 {
-    MeteoSpaceNetworkWrapper(MeteoSpaceNetwork* meteoSpaceNetwork) : meteoSpaceNetworkPtr(meteoSpaceNetwork) {}
-
-    ~MeteoSpaceNetworkWrapper()
-    {
-        delete meteoSpaceNetworkPtr;
-    }
+    MeteoSpaceNetworkWrapper(MeteoSpaceNetwork* meteoSpaceNetwork);
+    ~MeteoSpaceNetworkWrapper();
 
     MeteoSpaceNetwork* meteoSpaceNetworkPtr = nullptr;
 };
