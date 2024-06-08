@@ -31,12 +31,8 @@ struct LaptopWrapper
 
 struct LaptopBatteryWrapper
 {
-    LaptopBatteryWrapper(Laptop::Battery* laptopBattery) : laptopBatteryPtr(laptopBattery) {}
-
-    ~LaptopBatteryWrapper()
-    {
-        delete laptopBatteryPtr;
-    }
+    LaptopBatteryWrapper(Laptop::Battery* laptopBattery);
+    ~LaptopBatteryWrapper();
 
     Laptop::Battery* laptopBatteryPtr = nullptr;
 };

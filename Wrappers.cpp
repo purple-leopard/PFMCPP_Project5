@@ -20,3 +20,10 @@ LaptopWrapper::~LaptopWrapper()
 {
     delete laptopPtr;
 }
+
+LaptopBatteryWrapper::LaptopBatteryWrapper(Laptop::Battery* laptopBattery) : laptopBatteryPtr(laptopBattery) {}
+
+LaptopBatteryWrapper::~LaptopBatteryWrapper()
+{
+    delete laptopBatteryPtr;
+}
