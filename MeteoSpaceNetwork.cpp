@@ -1,3 +1,4 @@
+#include <iostream>
 #include "MeteoSpaceNetwork.h"
 
 MeteoSpaceNetwork::MeteoSpaceNetwork()
