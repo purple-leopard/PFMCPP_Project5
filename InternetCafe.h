@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "LeakedObjectDetector.h"
 #include "Laptop.h"
 

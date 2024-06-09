@@ -1,3 +1,4 @@
+#include <iostream>
 #include "InternetCafe.h"
 
 InternetCafe::InternetCafe()
