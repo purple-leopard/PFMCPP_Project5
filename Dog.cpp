@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Dog.h"
 
 Dog::Dog() : weight(1.0f), height(0.5f), ageInYears(1), furColour("brown"), breed("Jack Russel")
