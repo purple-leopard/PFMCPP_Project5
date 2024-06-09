@@ -1,3 +1,4 @@
+#include <iostream>
 #include "WeatherSatellite.h"
 
 WeatherSatellite::WeatherSatellite() : attitude(45.7)
