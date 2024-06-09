@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Laptop.h"
 
 Laptop::Laptop() : model("Macbook")
